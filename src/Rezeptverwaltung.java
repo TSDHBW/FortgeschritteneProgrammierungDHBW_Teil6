@@ -40,7 +40,7 @@ public class Rezeptverwaltung {
 
     }
 
-    public void zeigeRezetAn (String art, String name){
+    public void zeigeRezeptAn (String art, String name){
 
     }
 
