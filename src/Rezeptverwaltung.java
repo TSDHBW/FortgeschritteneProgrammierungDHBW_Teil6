@@ -5,7 +5,7 @@
  * @author Timo
  * @version 1
  */
-public class Rezeptverwaltung {
+public class Rezeptverwaltung ( // 1 Punkt
 
     private BasisRezept[] rezepte;
     private int index;
@@ -17,17 +17,16 @@ public class Rezeptverwaltung {
 
     }
 
-    public int ermittleAnzahlRezepte (String typ){
+    public int ermittleAnzahlRezepte (String type){
 
         int anzahl = 0;
         for (int i = 0; i < index; i++){
 
-            if (rezepte[i].getTyp().equals(typ)){
+            if (rezepte[i].getTyp().equals(typ)){ // 2 Punkt
 
                 anzahl++;
 
             }
-
         }
 
         return anzahl;
@@ -50,13 +49,12 @@ public class Rezeptverwaltung {
 
             if (rezepte[i].getName().equals(name) && rezepte[i].getTyp().equals(typ)){
 
-                return rezepte[i];
+                return rezepte; // 1 Punkt
 
             }
-
         }
 
-        return null;
+        //return null; - 3 Punkte
 
     }
 
@@ -65,12 +63,12 @@ public class Rezeptverwaltung {
     }
 
     public BasisRezept[] getRezeptete() {
-        return rezepte;
+        return rezepte[]; // 1 Punkt
     }
 
-    public void setRezepte (BasisRezept[] rezepte) {
+    public void setRezepte (BasisRezepte[] rezepte) {
         this.rezepte = rezepte;
-    }
+    } // 1 Punkt
 
     /**
      * Methode zur Aufnahme eines neuen Rezepts in die Rezepteverwaltung. Die Methode prüft zuerst, ob ein Rezept mit
@@ -83,10 +81,10 @@ public class Rezeptverwaltung {
     public boolean nehmeRezeptAuf (BasisRezept rezept) {
 
         boolean anfrageAusgefuert = false;
-        for (int i = 0; i < index; i++){
+        for (int i = 0; i < index){ // 1 Punkt
 
-            if (rezepte[i].getName().equals(rezept.getName())){
-                rezepte[i] = rezept;
+            if (rezepte[i].getName().equals(rezept.getName()){ // 2 Punkte
+                rezept[i] = rezept; // 1 Punkt
                 anfrageAusgefuert = true;
             }
         }
@@ -94,21 +92,21 @@ public class Rezeptverwaltung {
             System.out.println("Rezept " + rezept.getName() + " aktualisiert");
         } else {
 
-            if (index < 3999) {
+            if (index < 3999) // 1 Punkt
 
                 rezepte[index] = rezept;
                 index++;
-                System.out.println("Rezept " + rezept.getName() + " neu aufgenommen");
+                System.out.println("Rezept " + rezept.name + " neu aufgenommen"); // 2 Punkte
                 anfrageAusgefuert = true;
 
             } else {
 
-                System.out.println("Zutatenverwaltung ist voll");
+                System.out.println("Zutatenverwaltung ist voll") // 1 Punkt
 
             }
 
         }
-        return anfrageAusgefuert;
+        //return anfrageAusgefuert; -> 3 Punkte
     }
 
 }
