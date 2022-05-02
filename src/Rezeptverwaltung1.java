@@ -9,7 +9,7 @@ public class Rezeptverwaltung1{ // { // 1 Punkt
     public int ermittleAnzahlRezepte (String type){
         int anzahl = 0;
         for (int i = 0; i < index; i++){
-            if (rezepte[i].getTyp().equals(type)){ // type // 2 Punkte
+            if (rezepte[i].getTyp().equals(type)){ // type // 1 Punkte
                 anzahl++;
             }
         }
@@ -23,7 +23,7 @@ public class Rezeptverwaltung1{ // { // 1 Punkt
     public BasisRezept getRezept (String name, String typ){
         for (int i = 0; i < index; i++){
             if (rezepte[i].getName().equals(name) && rezepte[i].getTyp().equals(typ)){
-                return rezepte[i]; // [i] // 1 Punkt
+                return rezepte[i]; // [i] // 2 Punkt
             }
         }
         return null; //return null;  //- 3 Punkte
