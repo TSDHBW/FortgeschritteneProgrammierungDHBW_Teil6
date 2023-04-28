@@ -29,12 +29,12 @@ public class Zutat implements Verkaufspreis {
     }
 
     @Override
-    public double getZutatenPreis() {
-        return preis;
+    public double getAufschlag() {
+        return 0.75;
     }
 
     @Override
-    public double getZubereitungsPreis() {
-        return 0.75;
+    public double ermittelVerkaufspreis() {
+        return preis + getAufschlag();
     }
 }

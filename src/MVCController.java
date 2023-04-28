@@ -24,14 +24,15 @@ public class MVCController {
         Zutat[] zutaten = {limette, zucker};
         Cocktail caipirinha = new Cocktail("Caipirinha", zutaten, true, false, 2, false);
         Limonade zitronenlimo = new Limonade("Zitronenlimo", zutaten, false, false, "Limette", true);
+        Verkaufspreis[] speisen1 = {caipirinha, zitronenlimo};
+        System.out.println("Gesamtpreis: " + ermittleGesamtpreis(speisen1));
         model.rezeptverwaltung.nehmeRezeptAuf(caipirinha);
         model.rezeptverwaltung.nehmeRezeptAuf(zitronenlimo);
         Cocktail cocktail = (Cocktail)model.rezeptverwaltung.getRezept("Caipirinha", "Cocktail");
         System.out.println(cocktail.getName());
         aktualisiereRezept(cocktail);
         werteRezeptverwaltungAus();
-        berechneVerkaufspreis(caipirinha);
-        berechneVerkaufspreis(limette);
+
 
     }
 
@@ -55,23 +56,54 @@ public class MVCController {
 
     public void werteRezeptverwaltungAus (){
 
-        System.out.println(model.rezeptverwaltung.ermittleAnzahlRezepte());
-        System.out.println(model.rezeptverwaltung.ermittleAnzahlRezepte("Cocktail"));
-        System.out.println(model.rezeptverwaltung.ermittleAnzahlRezepte("Limonade"));
+        System.out.println("----");
+        System.out.println("Anzahl Rezepte: " + model.rezeptverwaltung.ermittleAnzahlRezepte());
+        System.out.println("Anzahl Cocktailrezepte: " + model.rezeptverwaltung.ermittleAnzahlRezepte("Cocktail"));
+        System.out.println("Anzahl Limorezepte: " + model.rezeptverwaltung.ermittleAnzahlRezepte("Limonade"));
 
     }
 
-    public void berechneVerkaufspreis (Verkaufspreis parameter){
+    public double ermittleGesamtpreis (Verkaufspreis[]speisen){
 
-        double preis = 0.00;
-        preis += parameter.BASISPREIS;
-        preis += parameter.getZubereitungsPreis();
-        preis += parameter.getZutatenPreis();
-        System.out.println(preis);
+        System.out.println("----");
+        System.out.println("Gesamtpreis:");
+        double gesamtpreis = 0.00;
+        for (int i = 0; i < speisen.length; i++){
+            gesamtpreis = gesamtpreis + speisen[i].ermittelVerkaufspreis();
+        }
+        return gesamtpreis;
+
 
     }
 
+    public double ermittleGesamtpreisNeu(Verkaufspreis[]speisen, boolean kochbox) {
 
+        System.out.println("----");
+        System.out.println("Gesamtpreis:");
+        double verkaufspreis = 0.0;
+        if (kochbox == false) {
 
+            for (int i = 0; i < speisen.length; i++) {
+                if (speisen[i] != null) {
+                    verkaufspreis = verkaufspreis + speisen[i].ermittelVerkaufspreis();
+                }
+            }
+
+        } else {
+
+            for (int i = 0; i < speisen.length; i++){
+                if (speisen[i] != null){
+                    BasisRezept rezept = (BasisRezept) speisen[i];
+                    for (int j = 0 ; j < rezept.getZutaten().length; j++){
+                        if (rezept.getZutaten()[j] != null){
+                            verkaufspreis = verkaufspreis + rezept.getZutaten()[j].ermittelVerkaufspreis();
+                        }
+                    }
+                    verkaufspreis = verkaufspreis + speisen[i].BASISPREIS;
+                }
+            }
+        }
+        return verkaufspreis;
+    }
 
 }

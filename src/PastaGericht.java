@@ -35,19 +35,19 @@ public class PastaGericht extends BasisRezeptEssen implements Verkaufspreis {
     }
 
     @Override
-    public double getZutatenPreis() {
-
-        double preis = 0.00;
-        for (int i = 0; i < getZutaten().length; i++){
-
-            preis = preis + getZutaten()[i].getPreis();
-
-        }
-        return preis;
+    public double getAufschlag() {
+        return 4.0;
     }
 
     @Override
-    public double getZubereitungsPreis() {
-        return 5.00;
+    public double ermittelVerkaufspreis() {
+        double verkaufspreis = 0.0;
+        for (int i = 0; i < getZutaten().length; i++){
+            if (getZutaten()[i] != null){
+                verkaufspreis = verkaufspreis + getZutaten()[i].getPreis();
+            }
+        }
+        verkaufspreis = verkaufspreis + getAufschlag() + BASISPREIS;
+        return verkaufspreis;
     }
 }

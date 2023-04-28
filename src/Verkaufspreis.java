@@ -1,8 +1,8 @@
 public interface Verkaufspreis {
 
-    public static final double BASISPREIS = 1.00;
+    public static final double BASISPREIS = 1.50;
 
-    public abstract double getZutatenPreis ();
-    public abstract double getZubereitungsPreis ();
+    public abstract double getAufschlag();
+    public abstract double ermittelVerkaufspreis();
 
 }

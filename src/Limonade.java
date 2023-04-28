@@ -34,19 +34,24 @@ public class Limonade extends BasisRezeptGetraenk implements Verkaufspreis {
     }
 
     @Override
-    public double getZutatenPreis() {
-
-        double preis = 0.00;
-        for (int i = 0; i < getZutaten().length; i++){
-
-            preis = preis + getZutaten()[i].getPreis();
-
+    public double getAufschlag() {
+        if (herstellungInHouse == true){
+            return 2.50;
+        } else {
+            return 2.0;
         }
-        return preis;
     }
 
     @Override
-    public double getZubereitungsPreis() {
-        return 3.00;
+    public double ermittelVerkaufspreis() {
+        double verkaufspreis = 0.0;
+        for (int i = 0; i < getZutaten().length; i++){
+            if (getZutaten()[i] != null){
+                verkaufspreis = verkaufspreis + getZutaten()[i].getPreis();
+            }
+        }
+        verkaufspreis = verkaufspreis + getAufschlag() + BASISPREIS;
+        return verkaufspreis;
     }
+
 }
