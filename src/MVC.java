@@ -11,8 +11,4 @@ public class MVC {
 
     }
 
-    public static boolean xy (){
-
-    }
-
 }

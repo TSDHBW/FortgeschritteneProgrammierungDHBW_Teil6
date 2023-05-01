@@ -73,37 +73,6 @@ public class MVCController {
         }
         return gesamtpreis;
 
-
-    }
-
-    public double ermittleGesamtpreisNeu(Verkaufspreis[]speisen, boolean kochbox) {
-
-        System.out.println("----");
-        System.out.println("Gesamtpreis:");
-        double verkaufspreis = 0.0;
-        if (kochbox == false) {
-
-            for (int i = 0; i < speisen.length; i++) {
-                if (speisen[i] != null) {
-                    verkaufspreis = verkaufspreis + speisen[i].ermittelVerkaufspreis();
-                }
-            }
-
-        } else {
-
-            for (int i = 0; i < speisen.length; i++){
-                if (speisen[i] != null){
-                    BasisRezept rezept = (BasisRezept) speisen[i];
-                    for (int j = 0 ; j < rezept.getZutaten().length; j++){
-                        if (rezept.getZutaten()[j] != null){
-                            verkaufspreis = verkaufspreis + rezept.getZutaten()[j].ermittelVerkaufspreis();
-                        }
-                    }
-                    verkaufspreis = verkaufspreis + speisen[i].BASISPREIS;
-                }
-            }
-        }
-        return verkaufspreis;
     }
 
 }
