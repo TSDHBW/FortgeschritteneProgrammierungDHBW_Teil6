@@ -1,3 +1,6 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /**
  * Klasse zur Generierung eines Objekts für die Zutatenverwaltung. Jede Zutatenverwaltung besitzt ein Array, in dem
  * alle erzeugten Zutaten gespeichert werden.
@@ -39,41 +42,84 @@
 
     }
 
-    /**
-     * Methode zur Aufnahme einer neuen Zutat in die Zutatenverwaltung. Die Methode prüft zuerst, ob eine Zutat mit
-     * gleichem Namen bereits in der Zutatenverwaltung existiert. Falls ja, wird die Zutat aktualisiert. Falls nein,
-     * wird geprüft, ob bereits 100 Zutaten in der Zutatenverwaltung existiieren. Falls nein, wird die Zutat
-     * aufgenommen
-     * @param zutat
-     * @return boolean
-     */
-     public boolean setZutat(Zutat zutat){
+    public void nehmeZutatAuf (Zutat zutat){
 
-        boolean anfrageAusgefuert = false;
-        for (int i = 0; i < index; i++){
-            if (zutaten[i].getName().equals(zutat.getName())){
-                zutaten[i] = zutat;
-                anfrageAusgefuert = true;
+        boolean aktualisiert = false;
+        for (int i = 0; i < zutaten.length; i++){
+
+            if (zutaten[i] != null){
+
+                if (zutaten[i].getName().equals(zutat.getName()) == true){
+
+                    // Aktualisieren von Rezept
+                    zutaten[i] = zutat;
+                    aktualisiert = true;
+                    break;
+
+                }
             }
         }
-        if (anfrageAusgefuert){
-            System.out.println("Zutat " + zutat.getName() + " aktualisiert");
-        } else {
 
-            if (index < 99) {
+        if (aktualisiert == false){
 
-                zutaten[index] = zutat;
-                index++;
-                System.out.println("Zutat " + zutat.getName() + " neu aufgenommen");
-                anfrageAusgefuert = true;
+            for (int i = 0; i < zutaten.length; i++){
 
-            } else {
+                if (zutaten[i] == null){
 
-                System.out.println("Die Zutatenverwaltung ist voll");
+                    // Hinzufügen von Rezept
+                    zutaten[i] = zutat;
+                    break;
 
+                }
             }
         }
-     return anfrageAusgefuert;
+    }
+
+    public Zutat sucheZutat(){
+        Scanner scanner1 = new Scanner(System.in);
+        boolean zutatGefunden = false;
+        try{
+            System.out.println("Name von Zutat: ");
+            String name = scanner1.nextLine();
+            for (int i = 0; i < zutaten.length; i++){
+                if (zutaten[i] != null){
+                    if (zutaten[i].getName().equals(name)){
+                        zutatGefunden = true;
+                        return zutaten[i];
+                    }
+                }
+            }
+        } catch (InputMismatchException e){
+            System.out.println(e.getMessage());
+            System.out.println("Ungeültige Eingabe");
+        } finally {
+            //scanner.close();
+        }
+        if (zutatGefunden == false){
+            System.out.println("Zutat nicht gefunden");
+        }
+        return null;
+    }
+
+    public void aendereZutatenPreis(){
+
+        Zutat zutat = sucheZutat();
+        if (zutat != null) {
+            Scanner scanner = new Scanner(System.in);
+            try {
+                System.out.println("Neuen Preis eingegeben");
+                double preis = scanner.nextDouble();
+                zutat.setPreis(preis);
+                nehmeZutatAuf(zutat);
+            }   catch (InputMismatchException e){
+                System.out.println(e.getMessage());
+                System.out.println("Kein gültiger Preis.");
+            }finally {
+                scanner.close();
+                System.out.println("Preisänderung abgeschlossen");
+            }
+        }
+
     }
 
 }
