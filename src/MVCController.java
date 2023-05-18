@@ -1,3 +1,6 @@
+import javax.imageio.IIOException;
+import java.io.*;
+
 /**
  * Klasse MVCController ist für die Erzeugung des User Interface und des Datenmodells verantwortlich.
  * Zusätzlich werden alle Benutzeraktionen im User Interface in Form von ActionEvents behandelt.
@@ -23,19 +26,25 @@ public class MVCController {
         Zutat zucker = legeZutatan("Zucker", 2.50);
         Zutat[] zutaten = {limette, zucker};
         Cocktail caipirinha = new Cocktail("Caipirinha", zutaten, true, false, 2, false);
-        Limonade zitronenlimo = new Limonade("Zitronenlimo", zutaten, false, false, "Limette", true);
+        Limonade zitronenlimo = (Limonade) model.rezeptverwaltung.getRezept("Zitronenlimo", "Limonade");
         Verkaufspreis[] speisen1 = {caipirinha, zitronenlimo};
-        System.out.println("Gesamtpreis Speisen: " + ermittleGesamtpreis(speisen1));
-        System.out.println("Gesamtpreis Kochbox: " + ermittleGesamtpreis(speisen1, true));
+        //System.out.println("Gesamtpreis Speisen: " + ermittleGesamtpreis(speisen1));
+        //System.out.println("Gesamtpreis Kochbox: " + ermittleGesamtpreis(speisen1, true));
         model.rezeptverwaltung.nehmeRezeptAuf(caipirinha);
-        model.rezeptverwaltung.nehmeRezeptAuf(zitronenlimo);
+        //model.rezeptverwaltung.nehmeRezeptAuf(zitronenlimo);
         Cocktail cocktail = (Cocktail)model.rezeptverwaltung.getRezept("Caipirinha", "Cocktail");
-        System.out.println(cocktail.getName());
-        aktualisiereRezept(cocktail);
-        werteRezeptverwaltungAus();
-        model.zutatenverwaltung.aendereZutatenPreis();
-        System.out.println("Gesamtpreis Speisen: " + ermittleGesamtpreis(speisen1));
-        System.out.println("Gesamtpreis Kochbox: " + ermittleGesamtpreis(speisen1, true));
+        //System.out.println(cocktail.getName());
+        //aktualisiereRezept(cocktail);
+        //werteRezeptverwaltungAus();
+        //model.zutatenverwaltung.aendereZutatenPreis();
+        //System.out.println("Gesamtpreis Speisen: " + ermittleGesamtpreis(speisen1));
+        //System.out.println("Gesamtpreis Kochbox: " + ermittleGesamtpreis(speisen1, true));
+        //read();
+        //write();
+        //model.rezepteSpeichern();
+        Limonade orangenlimo = new Limonade("Orangenlimo", zutaten, false, false, "Organe", true);
+        model.rezeptverwaltung.nehmeRezeptAuf(orangenlimo);
+        model.rezepteSpeichern();
 
     }
 
@@ -106,4 +115,49 @@ public class MVCController {
         return verkaufspreis;
     }
 
+    public void read (){
+
+        try {
+
+            FileReader fileReaderAbsolut = new FileReader("C:\\Users\\Timo\\IdeaProjects\\Java Masterclass\\FortgeschritteneProgrammierungDHBW_Teil6\\IODatei.txt");
+            FileReader fileReaderRelativ = new FileReader("..\\IODatei.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReaderRelativ);
+            String zeile;
+
+            while ((zeile = bufferedReader.readLine()) !=null){
+                System.out.println(zeile);
+            }
+
+        } catch (FileNotFoundException e){
+
+            System.out.println("Datei nicht gefunden: " + e.getMessage());
+
+        } catch (IOException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+
+    }
+
+    public void write (){
+
+        try {
+
+            FileWriter fileWriter = new FileWriter("IODatei1.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write("Rezepte:");
+            bufferedWriter.newLine();
+            bufferedWriter.write("Caipirinha");
+            bufferedWriter.newLine();
+            bufferedWriter.write("Zitronenlimo");
+            //bufferedWriter.close();
+
+        } catch (IOException e){
+
+            System.out.println(e.getMessage());
+
+        }
+
+    }
 }

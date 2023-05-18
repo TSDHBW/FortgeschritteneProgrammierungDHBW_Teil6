@@ -26,7 +26,7 @@ public class Rezeptverwaltung {
 
                 if (rezepte[i].getName().equals(rezept.getName()) && rezepte[i].getTyp().equals(rezept.getTyp())){
 
-                    // Aktualisieren von Rezept
+                    System.out.println("Rezept aktualisiert");
                     rezepte[i] = rezept;
                     aktualisiert = true;
                     break;
@@ -164,7 +164,8 @@ public class Rezeptverwaltung {
         return anzahl;
     }
 
-    public BasisRezept getRezept(String rezeptname, String rezeptart){
+
+        public BasisRezept getRezept(String rezeptname, String rezeptart){
 
         boolean aktualisiert = false;
         for (int i = 0; i < rezepte.length; i++){
